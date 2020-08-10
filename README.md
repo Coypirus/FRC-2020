@@ -1,6 +1,7 @@
 # FRC-2020
 
 Code for the 2020 FIRST Robotics Competition!
+By Peter, Calum, Jack, and Rey.
 
 ## Git explained
 
@@ -18,8 +19,6 @@ So, a tree is the directory structure: think of it as a tree, whose base is the 
 (It's worth noting that just doing that is inefficient: after all, changing one character in a large file will drastically change the hash, and so the large file would be stored all over again.  Git has a quite clever way of packing those together: it's called packing, and it's what is going on whenever git talks about deltas)
 
 Now, the next up in the hierarchy of git objects is the commit.  A commit contains a pointer to a tree, but it also states what commit it is based on, who committed it and when, and a custom message that they would have added.  Commits are what you work with a lot in git: while trees and blobs are good to know about, because they are how git works, it's important to understand commits first.  However, the author is getting tired, and so they won't go further.
-
-TODO: expand on the above, and explain branches and such
 
 ### Git Branch Structure
 
