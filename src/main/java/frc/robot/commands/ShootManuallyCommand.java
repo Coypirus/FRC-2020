@@ -9,6 +9,7 @@ package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
+import frc.robot.subsystems.ShooterSubsystem;
 
 public class ShootManuallyCommand extends Command {
   public ShootManuallyCommand() {
@@ -17,24 +18,44 @@ public class ShootManuallyCommand extends Command {
     requires(Robot.shooterSubsystem);
     
   }
-
+  public double panVal() {
+    double pan = 0;
+      if (Robot.oi.leftJoystick.getZ() > 0) { // Panning right (clockwise)
+      if (Robot.shooterSubsystem.getPanEncoder() >= 1406) {
+    pan = 0;
+    return pan;
+      } else {
+        pan = 0;
+        return pan;
+      }
+    } else { //Panning left (counterclockwise)
+      if (Robot.shooterSubsystem.getPanEncoder() > 435) {
+        if (Robot.shooterSubsystem.getPanEncoder() <= 3340) {
+         pan = 0;
+        return pan;
+        }
+      } else {
+        pan = Robot.oi.leftJoystick.getZ();
+        return pan;
+      }
+    }
+    return pan;
+  }
   // Called just before this Command runs the first time
   @Override
   protected void initialize() {
     //set shooter wheel to full speed
-    Robot.shooterSubsystem.shoot(1);
   }
 
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
+
     Robot.shooterSubsystem.shoot(1);
     //use the twist and throttle to control shooter pan and tilt
-    double pan = Robot.oi.leftJoystick.getZ();
     //double tilt = Robot.oi.leftJoystick.getThrottle();
-    Robot.shooterSubsystem.pan(pan);
+    Robot.shooterSubsystem.pan(panVal());
     //Robot.shooterSubsystem.tilt(tilt);
-    
     Robot.smartDashboardSubsystem.updateShooterValues();
   }
 
